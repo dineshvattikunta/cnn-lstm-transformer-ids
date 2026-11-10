@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aegis IDS — Deep Learning Intrusion Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="ambient-glow glow-purple"></div>
+
+  <!-- Navigation Bar (Apple iOS Floating Glass Bar) -->
+  <header class="navbar-wrapper">
+    <nav class="ios-nav glass-card">
+      <div class="nav-brand">
+        <div class="shield-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">AEGIS<span class="brand-accent">.IDS</span></span>
+          <span class="brand-sub">Neural Network Defense</span>
+        </div>
+      </div>
+
+      <!-- Model Version Switcher Segmented Control (iOS Style) -->
+      <div class="ios-segmented-control" id="modelSelector">
+        <button class="segment-btn active" data-model="baseline">
+          <span class="status-dot green"></span>
+          Baseline (CICIDS2017)
+        </button>
+        <button class="segment-btn" data-model="enhanced">
+          <span class="status-dot purple"></span>
+          Enhanced 2025 (Bi-LSTM + MHA)
+        </button>
+      </div>
+
+      <div class="nav-right">
+        <div class="hardware-pill">
+          <span class="pulse-indicator"></span>
+          <span id="systemStatusText">Neural Engine: Active</span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dashboard-container">
+    
+    <!-- Hero Section (Doss Style Headline & Metrics Banner) -->
+    <section class="hero-section">
+      <div class="hero-header">
+        <div class="hero-badge">
+          <span class="sparkle-icon">✦</span> Deep Learning Cybersecurity Architecture
+        </div>
+        <h1 class="hero-title">Intelligent Intrusion Detection with <span class="gradient-text">CNN-LSTM-Transformer</span></h1>
+        <p class="hero-desc">
+          Tri-dimensional defense analyzing spatial packet correlation, short-term burst dynamics, and long-range multi-stage threat sequences.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Ribbon (iOS Glass Cards) -->
+      <div class="metrics-grid">
+        <div class="metric-card glass-card">
+          <div class="metric-icon blue">🎯</div>
+          <div class="metric-info">
+            <span class="metric-label">Model Accuracy</span>
+            <div class="metric-value-row">
+              <span class="metric-value" id="valAccuracy">99.20%</span>
+              <span class="trend-badge positive">+10.5% vs SVM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-icon purple">⚡</div>
+          <div class="metric-info">
+            <span class="metric-label">Inference Latency</span>
+            <div class="metric-value-row">
+              <span class="metric-value" id="valLatency">1.2 ms</span>
+              <span class="trend-badge neutral">Real-time</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-icon emerald">🛡️</div>
+          <div class="metric-info">
+            <span class="metric-label">Threats Blocked</span>
+            <div class="metric-value-row">
+              <span class="metric-value" id="valThreatsBlocked">1,428</span>
+              <span class="trend-badge positive">99.1% F1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-card glass-card">
+          <div class="metric-icon red">🚨</div>
+          <div class="metric-info">
+            <span class="metric-label">Zero-Day Detection</span>
+            <div class="metric-value-row">
+              <span class="metric-value" id="valZeroDay">Active</span>
+              <span class="trend-badge alert">Transformer MHA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Breakdown: 3 Synergistic Blocks -->
+    <section class="architecture-section">
+      <div class="section-title-row">
+        <div>
+          <h2 class="section-title">Tri-Core Neural Pipeline</h2>
+          <p class="section-subtitle">Real-time signal decomposition from packet level to global network context</p>
+        </div>
+        <div class="pipeline-badge">Algorithm 1 Flow</div>
+      </div>
+
+      <div class="pipeline-grid">
+        <!-- 1. CNN Card -->
+        <div class="pipeline-card glass-card">
+          <div class="card-glow glow-blue"></div>
+          <div class="pipeline-header">
+            <span class="layer-number">01</span>
+            <span class="layer-tag blue">Spatial CNN</span>
+          </div>
+          <h3 class="pipeline-title">Spatial Pattern Extraction</h3>
+          <p class="pipeline-desc">Dual 1D-Convolution layers (128 filters) scan port correlations, packet lengths, and header flags without manual feature engineering.</p>
+          <div class="pipeline-meta">
+            <div class="meta-item"><span>Kernel Size</span><strong>3x1</strong></div>
+            <div class="meta-item"><span>Pooling</span><strong>MaxPool1D</strong></div>
+            <div class="meta-item"><span>Activation</span><strong>ReLU</strong></div>
+          </div>
+        </div>
+
+        <!-- 2. LSTM Card -->
+        <div class="pipeline-card glass-card">
+          <div class="card-glow glow-cyan"></div>
+          <div class="pipeline-header">
+            <span class="layer-number">02</span>
+            <span class="layer-tag cyan">Bi-LSTM</span>
+          </div>
+          <h3 class="pipeline-title">Temporal Sequence Memory</h3>
+          <p class="pipeline-desc">Bidirectional recurrent gates capture short-term velocity, packet inter-arrival times (IAT), and synchronized DDoS flood waves.</p>
+          <div class="pipeline-meta">
+            <div class="meta-item"><span>Hidden Units</span><strong>64 / 128</strong></div>
+            <div class="meta-item"><span>Directions</span><strong>Bidirectional</strong></div>
+            <div class="meta-item"><span>Gating</span><strong>Sigmoid/Tanh</strong></div>
+          </div>
+        </div>
+
+        <!-- 3. Transformer Card -->
+        <div class="pipeline-card glass-card">
+          <div class="card-glow glow-purple"></div>
+          <div class="pipeline-header">
+            <span class="layer-number">03</span>
+            <span class="layer-tag purple">Multi-Head Attn</span>
+          </div>
+          <h3 class="pipeline-title">Global Context Attention</h3>
+          <p class="pipeline-desc">6-Layer Multi-Head Self-Attention (8 heads) links stealthy reconnaissance probes to delayed exploitation actions over extended timeframes.</p>
+          <div class="pipeline-meta">
+            <div class="meta-item"><span>Heads</span><strong>8 Multi-Head</strong></div>
+            <div class="meta-item"><span>Embed Dim</span><strong>512</strong></div>
+            <div class="meta-item"><span>FFN Dim</span><strong>2048</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Live Inspection & Traffic Inspector -->
+    <section class="live-monitor-section">
+      <div class="section-header-split">
+        <div>
+          <h2 class="section-title">Live Traffic Surveillance</h2>
+          <p class="section-subtitle">Real-time incoming packet stream evaluated by the neural pipeline</p>
+        </div>
+        <div class="monitor-controls">
+          <button class="ios-btn secondary" id="btnSimulateOne">
+            <span class="btn-icon">⚡</span> Single Probe
+          </button>
+          <button class="ios-btn primary" id="btnToggleStream">
+            <span class="btn-icon" id="streamIcon">▶</span> <span id="streamLabel">Start Live Stream</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Stream Table (Doss Card Layout) -->
+      <div class="table-card glass-card">
+        <div class="table-container">
+          <table class="ios-table">
+            <thead>
+              <tr>
+                <th>TIMESTAMP</th>
+                <th>SOURCE IP</th>
+                <th>DEST PORT</th>
+                <th>PROTOCOL</th>
+                <th>DURATION</th>
+                <th>PACKETS</th>
+                <th>DETECTION RESULT</th>
+                <th>CONFIDENCE</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="streamTableBody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Threat Analysis & File Upload Hub -->
+    <section class="tools-grid-section">
+      
+      <!-- Interactive Packet Simulator -->
+      <div class="tool-card glass-card">
+        <div class="tool-header">
+          <div class="tool-icon-wrapper">🔬</div>
+          <div>
+            <h3 class="tool-title">Instant Packet Diagnostics</h3>
+            <p class="tool-desc">Inject custom traffic parameters into the neural network</p>
+          </div>
+        </div>
+
+        <div class="simulator-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Target Destination Port</label>
+              <input type="number" id="inputPort" class="ios-input" value="80">
+            </div>
+            <div class="form-group">
+              <label>Flow Duration (ms)</label>
+              <input type="number" id="inputDuration" class="ios-input" value="1200">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Total Forward Packets</label>
+              <input type="number" id="inputPackets" class="ios-input" value="450">
+            </div>
+            <div class="form-group">
+              <label>Traffic Preset</label>
+              <select id="selectPreset" class="ios-select">
+                <option value="benign">Normal Web Browsing (Port 443)</option>
+                <option value="ddos">DDoS Hulk / Flood Attack</option>
+                <option value="portscan">Port Scan Reconnaissance</option>
+                <option value="sqli">Web SQL Injection Payload</option>
+                <option value="c2">Modern Zero-Day C2 Beaconing</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="ios-btn primary full-width" id="btnAnalyzePacket">
+            Analyze Packet Vectors
+          </button>
+
+          <!-- Diagnostic Result Card -->
+          <div class="diagnostic-result" id="diagnosticBox">
+            <div class="result-header">
+              <span class="status-pill safe" id="resStatusPill">BENIGN</span>
+              <span class="res-confidence" id="resConfidence">99.8% Match</span>
+            </div>
+            <div class="neural-meter-container">
+              <div class="meter-label">
+                <span>Spatial CNN Signal</span>
+                <span id="cnnMeterVal">0.84</span>
+              </div>
+              <div class="meter-bar"><div class="meter-fill blue" id="cnnMeterFill" style="width: 84%;"></div></div>
+
+              <div class="meter-label">
+                <span>Bi-LSTM Temporal Dynamics</span>
+                <span id="lstmMeterVal">0.91</span>
+              </div>
+              <div class="meter-bar"><div class="meter-fill cyan" id="lstmMeterFill" style="width: 91%;"></div></div>
+
+              <div class="meter-label">
+                <span>Transformer Self-Attention Energy</span>
+                <span id="transMeterVal">0.96</span>
+              </div>
+              <div class="meter-bar"><div class="meter-fill purple" id="transMeterFill" style="width: 96%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CSV File Upload & Batch Scan -->
+      <div class="tool-card glass-card">
+        <div class="tool-header">
+          <div class="tool-icon-wrapper">📁</div>
+          <div>
+            <h3 class="tool-title">Batch PCAP / CSV Scanner</h3>
+            <p class="tool-desc">Drop network flow logs for deep batch inspection</p>
+          </div>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <p class="drop-text">Drag & drop <strong>CICIDS2017 / 2025 CSV</strong> file</p>
+          <span class="drop-sub">or click to browse files from disk</span>
+          <input type="file" id="fileInput" accept=".csv" style="display:none;">
+        </div>
+
+        <!-- Action Button for Scanning File -->
+        <button class="ios-btn primary full-width" id="btnScanFile" style="margin-top: 14px; display: none;">
+          <span class="btn-icon">⚡</span> Run Deep Batch Scan
+        </button>
+
+        <!-- Upload Summary Box -->
+        <div class="upload-summary" id="uploadSummary" style="display: none;">
+          <div class="summary-stat-row">
+            <div class="s-stat"><span class="s-label">Total Flows</span><strong id="upTotal">0</strong></div>
+            <div class="s-stat"><span class="s-label">Threats Caught</span><strong class="text-danger" id="upThreats">0</strong></div>
+            <div class="s-stat"><span class="s-label">Clean Flows</span><strong class="text-success" id="upClean">0</strong></div>
+          </div>
+          <div class="breakdown-list" id="upBreakdown"></div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="ios-footer">
+    <p>Aegis Deep Learning IDS • CNN-LSTM-Transformer Neural Architecture • ACM Reference ICCSIE 2025</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
+

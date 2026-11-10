@@ -1,0 +1,52 @@
+# ===================================================================
+# Enhanced Configuration: User Upgrades
+# Modules: CNN + Bi-LSTM + Enhanced Multi-Head Attention + 2025 Dataset
+# ===================================================================
+
+project:
+  name: "Enhanced-BiLSTM-MHA-IDS"
+  version: "2.0.0-enhanced"
+  device: "cuda"
+
+dataset:
+  name: "CICIDS2025_Modern"
+  raw_dir: "data/raw/ids2025"
+  processed_dir: "data/processed"
+  sample_file: "data/sample/modern_ids_2025_sample.csv"
+  num_features: 80
+  num_classes: 15
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+
+model:
+  architecture: "enhanced"
+  cnn:
+    filters: 128
+    kernel_size: 3
+    pool_size: 2
+    dropout: 0.2
+  bilstm:
+    hidden_size: 64
+    num_layers: 2
+    bidirectional: true
+    dropout: 0.2
+  multi_head_attention:
+    embed_dim: 512
+    num_heads: 8
+    ff_dim: 2048
+    num_layers: 6
+    dropout: 0.15
+    use_learnable_temperature: true
+
+training:
+  batch_size: 128
+  epochs: 30
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  early_stopping_patience: 4
+  save_dir: "saved_models"
+  results_dir: "results"
+

@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large raw datasets (>100MB exceeds GitHub push limits)
+data/raw/
+
+# Model weights (>100MB exceeds GitHub push limits)
+# If you want to track model weights on GitHub, use Git LFS
+saved_models/*.pt
+
+# Environments & IDEs
+.env
+.venv
+env/
+venv/
+.idea/
+.vscode/
+
+# Operating System Files
+.DS_Store
+Thumbs.db

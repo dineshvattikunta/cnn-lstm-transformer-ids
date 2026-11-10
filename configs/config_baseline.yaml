@@ -1,0 +1,47 @@
+# ===================================================================
+# Baseline Configuration: Original Paper (CNN + LSTM + Transformer)
+# Dataset: CICIDS2017
+# ===================================================================
+
+project:
+  name: "CNN-LSTM-Transformer-IDS"
+  version: "1.0.0-baseline"
+  device: "cuda"
+
+dataset:
+  name: "CICIDS2017"
+  raw_dir: "data/raw/cicids2017"
+  processed_dir: "data/processed"
+  sample_file: "data/sample/cicids2017_sample.csv"
+  num_features: 78
+  num_classes: 15
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+
+model:
+  architecture: "baseline"
+  cnn:
+    filters: 128
+    kernel_size: 3
+    pool_size: 2
+  lstm:
+    hidden_size: 64
+    num_layers: 2
+    bidirectional: false
+  transformer:
+    embed_dim: 512
+    num_heads: 8
+    ff_dim: 2048
+    num_layers: 6
+    dropout: 0.1
+
+training:
+  batch_size: 128
+  epochs: 25
+  learning_rate: 0.001
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  early_stopping_patience: 4
+  save_dir: "saved_models"
+  results_dir: "results"
